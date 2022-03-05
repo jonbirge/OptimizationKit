@@ -9,8 +9,26 @@
 /* Begin PBXBuildFile section */
 		AB27E72227D3F59A00C83D4D /* OptimizationKit.docc in Sources */ = {isa = PBXBuildFile; fileRef = AB27E72127D3F59A00C83D4D /* OptimizationKit.docc */; };
 		AB27E72827D3F59B00C83D4D /* OptimizationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB27E71D27D3F59A00C83D4D /* OptimizationKit.framework */; };
-		AB27E72D27D3F59B00C83D4D /* OptimizationKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E72C27D3F59B00C83D4D /* OptimizationKitTests.swift */; };
 		AB27E72E27D3F59B00C83D4D /* OptimizationKit.h in Headers */ = {isa = PBXBuildFile; fileRef = AB27E72027D3F59A00C83D4D /* OptimizationKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AB27E73F27D3F7D200C83D4D /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E73727D3F7D100C83D4D /* Matrix.swift */; };
+		AB27E74027D3F7D200C83D4D /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E73727D3F7D100C83D4D /* Matrix.swift */; };
+		AB27E74127D3F7D200C83D4D /* Power.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E73827D3F7D100C83D4D /* Power.swift */; };
+		AB27E74227D3F7D200C83D4D /* Power.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E73827D3F7D100C83D4D /* Power.swift */; };
+		AB27E74327D3F7D200C83D4D /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E73927D3F7D100C83D4D /* Auxiliary.swift */; };
+		AB27E74427D3F7D200C83D4D /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E73927D3F7D100C83D4D /* Auxiliary.swift */; };
+		AB27E74527D3F7D200C83D4D /* Surge.h in Headers */ = {isa = PBXBuildFile; fileRef = AB27E73A27D3F7D200C83D4D /* Surge.h */; };
+		AB27E74627D3F7D200C83D4D /* Hyperbolic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E73B27D3F7D200C83D4D /* Hyperbolic.swift */; };
+		AB27E74727D3F7D200C83D4D /* Hyperbolic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E73B27D3F7D200C83D4D /* Hyperbolic.swift */; };
+		AB27E74827D3F7D200C83D4D /* Exponential.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E73C27D3F7D200C83D4D /* Exponential.swift */; };
+		AB27E74927D3F7D200C83D4D /* Exponential.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E73C27D3F7D200C83D4D /* Exponential.swift */; };
+		AB27E74A27D3F7D200C83D4D /* Arithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E73D27D3F7D200C83D4D /* Arithmetic.swift */; };
+		AB27E74B27D3F7D200C83D4D /* Arithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E73D27D3F7D200C83D4D /* Arithmetic.swift */; };
+		AB27E74C27D3F7D200C83D4D /* Trigonometric.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E73E27D3F7D200C83D4D /* Trigonometric.swift */; };
+		AB27E74D27D3F7D200C83D4D /* Trigonometric.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E73E27D3F7D200C83D4D /* Trigonometric.swift */; };
+		AB27E74F27D3F7ED00C83D4D /* Optimization.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E74E27D3F7ED00C83D4D /* Optimization.swift */; };
+		AB27E75027D3F7ED00C83D4D /* Optimization.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E74E27D3F7ED00C83D4D /* Optimization.swift */; };
+		AB27E75327D3F81B00C83D4D /* OptimizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E75127D3F81B00C83D4D /* OptimizationTests.swift */; };
+		AB27E75427D3F81B00C83D4D /* MatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E75227D3F81B00C83D4D /* MatrixTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,7 +46,17 @@
 		AB27E72027D3F59A00C83D4D /* OptimizationKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OptimizationKit.h; sourceTree = "<group>"; };
 		AB27E72127D3F59A00C83D4D /* OptimizationKit.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = OptimizationKit.docc; sourceTree = "<group>"; };
 		AB27E72727D3F59B00C83D4D /* OptimizationKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OptimizationKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AB27E72C27D3F59B00C83D4D /* OptimizationKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptimizationKitTests.swift; sourceTree = "<group>"; };
+		AB27E73727D3F7D100C83D4D /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
+		AB27E73827D3F7D100C83D4D /* Power.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Power.swift; sourceTree = "<group>"; };
+		AB27E73927D3F7D100C83D4D /* Auxiliary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auxiliary.swift; sourceTree = "<group>"; };
+		AB27E73A27D3F7D200C83D4D /* Surge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Surge.h; sourceTree = "<group>"; };
+		AB27E73B27D3F7D200C83D4D /* Hyperbolic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hyperbolic.swift; sourceTree = "<group>"; };
+		AB27E73C27D3F7D200C83D4D /* Exponential.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Exponential.swift; sourceTree = "<group>"; };
+		AB27E73D27D3F7D200C83D4D /* Arithmetic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Arithmetic.swift; sourceTree = "<group>"; };
+		AB27E73E27D3F7D200C83D4D /* Trigonometric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trigonometric.swift; sourceTree = "<group>"; };
+		AB27E74E27D3F7ED00C83D4D /* Optimization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Optimization.swift; sourceTree = "<group>"; };
+		AB27E75127D3F81B00C83D4D /* OptimizationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptimizationTests.swift; sourceTree = "<group>"; };
+		AB27E75227D3F81B00C83D4D /* MatrixTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatrixTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +100,15 @@
 			isa = PBXGroup;
 			children = (
 				AB27E72027D3F59A00C83D4D /* OptimizationKit.h */,
+				AB27E74E27D3F7ED00C83D4D /* Optimization.swift */,
+				AB27E73A27D3F7D200C83D4D /* Surge.h */,
+				AB27E73D27D3F7D200C83D4D /* Arithmetic.swift */,
+				AB27E73927D3F7D100C83D4D /* Auxiliary.swift */,
+				AB27E73C27D3F7D200C83D4D /* Exponential.swift */,
+				AB27E73B27D3F7D200C83D4D /* Hyperbolic.swift */,
+				AB27E73727D3F7D100C83D4D /* Matrix.swift */,
+				AB27E73827D3F7D100C83D4D /* Power.swift */,
+				AB27E73E27D3F7D200C83D4D /* Trigonometric.swift */,
 				AB27E72127D3F59A00C83D4D /* OptimizationKit.docc */,
 			);
 			path = OptimizationKit;
@@ -80,7 +117,8 @@
 		AB27E72B27D3F59B00C83D4D /* OptimizationKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				AB27E72C27D3F59B00C83D4D /* OptimizationKitTests.swift */,
+				AB27E75227D3F81B00C83D4D /* MatrixTests.swift */,
+				AB27E75127D3F81B00C83D4D /* OptimizationTests.swift */,
 			);
 			path = OptimizationKitTests;
 			sourceTree = "<group>";
@@ -93,6 +131,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB27E72E27D3F59B00C83D4D /* OptimizationKit.h in Headers */,
+				AB27E74527D3F7D200C83D4D /* Surge.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,6 +233,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB27E73F27D3F7D200C83D4D /* Matrix.swift in Sources */,
+				AB27E74827D3F7D200C83D4D /* Exponential.swift in Sources */,
+				AB27E74127D3F7D200C83D4D /* Power.swift in Sources */,
+				AB27E74F27D3F7ED00C83D4D /* Optimization.swift in Sources */,
+				AB27E74327D3F7D200C83D4D /* Auxiliary.swift in Sources */,
+				AB27E74C27D3F7D200C83D4D /* Trigonometric.swift in Sources */,
+				AB27E74627D3F7D200C83D4D /* Hyperbolic.swift in Sources */,
+				AB27E74A27D3F7D200C83D4D /* Arithmetic.swift in Sources */,
 				AB27E72227D3F59A00C83D4D /* OptimizationKit.docc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -202,7 +249,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB27E72D27D3F59B00C83D4D /* OptimizationKitTests.swift in Sources */,
+				AB27E74027D3F7D200C83D4D /* Matrix.swift in Sources */,
+				AB27E74927D3F7D200C83D4D /* Exponential.swift in Sources */,
+				AB27E74227D3F7D200C83D4D /* Power.swift in Sources */,
+				AB27E75027D3F7ED00C83D4D /* Optimization.swift in Sources */,
+				AB27E74427D3F7D200C83D4D /* Auxiliary.swift in Sources */,
+				AB27E74D27D3F7D200C83D4D /* Trigonometric.swift in Sources */,
+				AB27E75427D3F81B00C83D4D /* MatrixTests.swift in Sources */,
+				AB27E74727D3F7D200C83D4D /* Hyperbolic.swift in Sources */,
+				AB27E74B27D3F7D200C83D4D /* Arithmetic.swift in Sources */,
+				AB27E75327D3F81B00C83D4D /* OptimizationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,6 +454,7 @@
 		AB27E73527D3F59B00C83D4D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 64FL3F254T;
@@ -414,6 +471,7 @@
 		AB27E73627D3F59B00C83D4D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 64FL3F254T;
