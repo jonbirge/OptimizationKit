@@ -1,2 +1,2 @@
-# swift-optimizer
+# OptimizationKit
 Optimization library written for Swift, using Acceleration framework
