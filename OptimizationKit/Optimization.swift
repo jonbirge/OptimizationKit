@@ -14,6 +14,7 @@ public enum OptimizationError: Error {
     case noFitOverrideDefined
 }
 
+/// Protocol implemented by an object that provides a regression model.
 public protocol Fittable {
     /// Returns the dimensionality of the parameter vector.
     var fitnparams: Int { get }
@@ -25,9 +26,13 @@ public protocol Fittable {
     func fitresiduals(for params:[Double]) throws -> [Double]
 }
 
+/// Super class that must be subclassed to implement a regression.
 public class Fitter {
+    /// Provide feedback during regression iterations?
     public var verbose: Bool = false
+    /// Relative tolerance before iteration is terminated
     public var reltol: Double = 0.0001
+    /// Maximum number of iterations that are allowed
     public var maxiters: Int = 32
     var system: Fittable  // regression model
     var testparams: [Double]?
@@ -42,12 +47,12 @@ public class Fitter {
         self.system = sys
     }
     
-    /// Function that *must* be overridden by a concrete subclass or an error will be thrown. This is the function that performs the actual regression.
+    /// Function that **must be overridden** by a subclass or an error will be thrown. This is the function that performs the actual regression.
     public func fit() throws -> [Double] {
         throw OptimizationError.noFitOverrideDefined
     }
     
-    /// Initialize fit. This function *must* be called at the beginning of a fit. Returns the initial parameters.
+    /// Initialize fit. This function **must be called at the beginning of a fit**. Returns the initial parameters.
     public func initFit() -> [Double]? {
         if verbose {
             print("Fitter: Starting fit...")
@@ -126,7 +131,10 @@ public class Fitter {
     }
 }
 
+/// Example `Fitter` class that implements a Gauss-Newton method for nonlinear regression. Works by solving the least squares problem using the Jacobian pseudo-inverse. Note how little code is required to implement a complete non-linear regression algorithm.
 public class GaussNewtonFitter : Fitter {
+    
+    /// Implement Guass-Newton iterations, returning the current test vector after one step.
     public override func fit() throws -> [Double] {
         guard let initparams = initFit() else {
             throw OptimizationError.failedInit
