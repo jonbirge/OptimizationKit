@@ -23,14 +23,15 @@ enum OptimizationError: Error {
 
 class Fitter {
     var verbose: Bool = false
-    var system: Fittable
     var initialparams: [Double]? = nil
+    var system: Fittable
     private let fdrel: Double = 0.0001
     
     init(with sys: Fittable) {
         self.system = sys
     }
     
+    // TODO: Should throw an error if ever called
     func fit() throws -> [Double] {
         return [0.0]
     }

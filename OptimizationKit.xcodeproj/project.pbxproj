@@ -16,7 +16,6 @@
 		AB27E74227D3F7D200C83D4D /* Power.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E73827D3F7D100C83D4D /* Power.swift */; };
 		AB27E74327D3F7D200C83D4D /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E73927D3F7D100C83D4D /* Auxiliary.swift */; };
 		AB27E74427D3F7D200C83D4D /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E73927D3F7D100C83D4D /* Auxiliary.swift */; };
-		AB27E74527D3F7D200C83D4D /* Surge.h in Headers */ = {isa = PBXBuildFile; fileRef = AB27E73A27D3F7D200C83D4D /* Surge.h */; };
 		AB27E74627D3F7D200C83D4D /* Hyperbolic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E73B27D3F7D200C83D4D /* Hyperbolic.swift */; };
 		AB27E74727D3F7D200C83D4D /* Hyperbolic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E73B27D3F7D200C83D4D /* Hyperbolic.swift */; };
 		AB27E74827D3F7D200C83D4D /* Exponential.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E73C27D3F7D200C83D4D /* Exponential.swift */; };
@@ -49,7 +48,6 @@
 		AB27E73727D3F7D100C83D4D /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
 		AB27E73827D3F7D100C83D4D /* Power.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Power.swift; sourceTree = "<group>"; };
 		AB27E73927D3F7D100C83D4D /* Auxiliary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auxiliary.swift; sourceTree = "<group>"; };
-		AB27E73A27D3F7D200C83D4D /* Surge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Surge.h; sourceTree = "<group>"; };
 		AB27E73B27D3F7D200C83D4D /* Hyperbolic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hyperbolic.swift; sourceTree = "<group>"; };
 		AB27E73C27D3F7D200C83D4D /* Exponential.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Exponential.swift; sourceTree = "<group>"; };
 		AB27E73D27D3F7D200C83D4D /* Arithmetic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Arithmetic.swift; sourceTree = "<group>"; };
@@ -101,7 +99,6 @@
 			children = (
 				AB27E72027D3F59A00C83D4D /* OptimizationKit.h */,
 				AB27E74E27D3F7ED00C83D4D /* Optimization.swift */,
-				AB27E73A27D3F7D200C83D4D /* Surge.h */,
 				AB27E73D27D3F7D200C83D4D /* Arithmetic.swift */,
 				AB27E73927D3F7D100C83D4D /* Auxiliary.swift */,
 				AB27E73C27D3F7D200C83D4D /* Exponential.swift */,
@@ -131,7 +128,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB27E72E27D3F59B00C83D4D /* OptimizationKit.h in Headers */,
-				AB27E74527D3F7D200C83D4D /* Surge.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

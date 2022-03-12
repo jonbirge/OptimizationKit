@@ -85,7 +85,7 @@ class OptimizationTests: XCTestCase {
     }
     
     func testGaussNewtonPerformance() {
-        let m = 200
+        let m = 128
         let fitter = GaussNewtonFitter(with: gentest)
         self.measure {
             var p: [Double]
