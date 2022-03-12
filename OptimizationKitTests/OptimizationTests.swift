@@ -22,7 +22,8 @@ class GenExponentialTest: Fittable {
         return x.count
     }
     
-    var fitinitparams: [Double] {
+    // Memoryless Fittable model
+    var fitparams: [Double] {
         return [0.9, 0.9]
     }
     
@@ -49,8 +50,8 @@ class GenExponentialTest: Fittable {
 
 class ExponentialTest: GenExponentialTest {
     init() {
-        let x0: [Double] = [0, 1, 2, 3, 4]
-        let y0: [Double] = [1.047, 0.2864, 0.288, 0.07777, 0.121, -0.0001342]
+        let x0: [Double] = [0, 1, 2, 3, 4, 5, 6]
+        let y0: [Double] = [1.047, 0.2864, 0.288, 0.07777, 0.121, -0.0001342, 0, 0.01]
 
         super.init(n: x0.count)
 
