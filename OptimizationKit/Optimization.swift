@@ -3,37 +3,41 @@
 //  EcoChef
 //
 //  Created by Jonathan Birge on 7/17/17.
-//  Copyright © 2022 Birge & Fuller. All rights reserved.
+//  Copyright © 2017-2022 Birge & Fuller. All rights reserved.
 //
 
-import Foundation
+//import Foundation
 
-protocol Fittable {
+public protocol Fittable {
     var fitnparams: Int { get }
     var fitnpoints: Int { get }
     var fitinitparams: [Double] { get }
     func fitresiduals(for params:[Double]) throws -> [Double]
 }
 
-enum OptimizationError: Error {
+public enum OptimizationError: Error {
     case undefinedResidual
     case singularJacobian
     case didNotConverge
 }
 
-class Fitter {
-    var verbose: Bool = false
+public class Fitter {
+    public var verbose: Bool = false
     var initialparams: [Double]? = nil
     var system: Fittable
     private let fdrel: Double = 0.0001
     
-    init(with sys: Fittable) {
+    public init(with sys: Fittable) {
         self.system = sys
     }
     
-    // TODO: Should throw an error if ever called
-    func fit() throws -> [Double] {
+    // TODO: Should throw an error if called, not return!
+    public func fit() throws -> [Double] {
         return [0.0]
+    }
+    
+    public func setInitial(params: [Double]) {
+        initialparams = params
     }
     
     // Matrix with columns (vectors) representing points and rows (vector of vectors) representing parameters.
@@ -64,14 +68,10 @@ class Fitter {
         let residarray: [Double] = try residuals(at: betarray)
         return Matrix<Double>(residarray)
     }
-    
-    func setInitial(params: [Double]) {
-        initialparams = params
-    }
 }
 
-class GaussNewtonFitter : Fitter {
-    override func fit() throws -> [Double] {
+public class GaussNewtonFitter : Fitter {
+    public override func fit() throws -> [Double] {
         var beta: Matrix<Double>
         if let initialparams = initialparams {
             beta = Matrix<Double>(initialparams)

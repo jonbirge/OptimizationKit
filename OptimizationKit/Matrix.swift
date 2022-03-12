@@ -1,6 +1,7 @@
 // Hyperbolic.swift
 //
 // Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
+// Copyright (c) 2017-2022 Jonathan Birge (http://www.mit.edu/~birge)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
