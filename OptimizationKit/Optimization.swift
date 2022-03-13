@@ -26,7 +26,7 @@ public protocol Fittable {
     func fitresiduals(for params:[Double]) throws -> [Double]
 }
 
-/// Super class that must be subclassed to implement a regression.
+/// Super class that must be subclassed to implement a regression. This superclass doesn't actually implement any regression function, but provides a common interface and helper functions to simplify implementation of regression models, which can often be implemented with only a few lines of code.
 public class Fitter {
     /// Provide feedback during regression iterations?
     public var verbose: Bool = false
@@ -47,12 +47,12 @@ public class Fitter {
         self.system = sys
     }
     
-    /// Function that **must be overridden** by a subclass or an error will be thrown. This is the function that performs the actual regression.
+    /// Function that **must be overridden** by a subclass to implement the actual regression.
     public func fit() throws -> [Double] {
         throw OptimizationError.noFitOverrideDefined
     }
     
-    /// Initialize fit. This function **must be called at the beginning of a fit**. Returns the initial parameters.
+    /// Initialize fit. This function **must be called at the beginning of a fit**. Returns the initial fit parameters.
     public func initFit() -> [Double]? {
         if verbose {
             print("Fitter: Starting fit...")
@@ -62,8 +62,8 @@ public class Fitter {
         return testparams
     }
     
-    /// Helper function to check for termination. This function *must* be called once per iteration. Returns `false` if the fitter should stop. Guaranteed to return true the first time called.
-    func checkTerminate(params: [Double]) -> Bool {
+    /// Check for termination. This function **must be called once per iteration**. Returns `true` if iterations should continue. Guaranteed to return `true` the first time called.
+    public func checkTerminate(params: [Double]) -> Bool {
         // check iteration count
         if iters > maxiters {
             if verbose {
