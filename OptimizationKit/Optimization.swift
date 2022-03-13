@@ -26,7 +26,7 @@ public protocol Fittable {
     func fitresiduals(for params:[Double]) throws -> [Double]
 }
 
-/// Super class that must be subclassed to implement a regression. This superclass doesn't actually implement any regression function, but provides a common interface and helper functions to simplify implementation of regression models, which can often be implemented with only a few lines of code.
+/// Superclass for all regression implementations. This superclass doesn't actually implement any regression function, but provides a common interface and helper functions to simplify implementation of regression models, which can often be implemented with only a few lines of code.
 public class Fitter {
     /// Provide feedback during regression iterations?
     public var verbose: Bool = false
@@ -34,9 +34,11 @@ public class Fitter {
     public var reltol: Double = 0.0001
     /// Maximum number of iterations that are allowed
     public var maxiters: Int = 32
+    /// Relative offset for finite differences used to approximate derivatives
+    public var fdrel: Double = 0.0001
+
     var system: Fittable  // regression model
     var testparams: [Double]?
-    private let fdrel: Double = 0.0001
     private var iters: Int = 0
     
     var iterations: Int {

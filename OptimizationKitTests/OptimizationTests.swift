@@ -9,6 +9,7 @@
 import XCTest
 @testable import OptimizationKit
 
+/// Test by fitting common problem of exponential decay
 class GenExponentialTest: Fittable {
     var x: [Double] = []
     var y: [Double] = []
@@ -48,21 +49,22 @@ class GenExponentialTest: Fittable {
     }
 }
 
-class ExponentialTest: GenExponentialTest {
+class NoisyExponentialTest: GenExponentialTest {
     init() {
         let x0: [Double] = [0, 1, 2, 3, 4, 5, 6]
         let y0: [Double] = [1.047, 0.2864, 0.288, 0.07777, 0.121, -0.0001342, 0, 0.01]
 
         super.init(n: x0.count)
 
+        // replace default perfect data with noisy data
         self.x = x0
         self.y = y0
     }
 }
 
 class OptimizationTests: XCTestCase {
-    var funtest = ExponentialTest()
-    var gentest = GenExponentialTest(n: 128)
+    var funtest = NoisyExponentialTest()
+    var gentest = GenExponentialTest(n: 256)
     
     override func setUp() {
         super.setUp()
@@ -75,19 +77,20 @@ class OptimizationTests: XCTestCase {
     }
     
     func testGaussNewtonFit() {
-        let fitter = GaussNewtonFitter(with: funtest)
+        let fitter = GaussNewtonFitter(with: gentest)
+        fitter.verbose = true
         do {
             let p: [Double] = try fitter.fit()
-            XCTAssertEqual(p[0], 1.01869, accuracy: 0.01)
-            XCTAssertEqual(p[1], 0.90268, accuracy: 0.01)
+            XCTAssertEqual(p[0], 1, accuracy: 0.01)
+            XCTAssertEqual(p[1], 1, accuracy: 0.01)
         } catch {
-            XCTFail("GaussNewton threw")
+            XCTFail("GaussNewton threw up")
         }
     }
     
     func testGaussNewtonPerformance() {
-        let m = 128
-        let fitter = GaussNewtonFitter(with: gentest)
+        let m = 64
+        let fitter = GaussNewtonFitter(with: funtest)
         self.measure {
             var p: [Double]
             do {
@@ -99,7 +102,7 @@ class OptimizationTests: XCTestCase {
                     XCTAssertEqual(p[1], 1.0, accuracy: 0.01)
                 }
             } catch {
-                XCTFail("GaussNewton threw")
+                XCTFail("GaussNewton threw up")
             }
         }
     }
