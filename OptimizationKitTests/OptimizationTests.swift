@@ -14,7 +14,7 @@ class ExponentialDecayModel: Fittable {
     var x: [Double] = []
     var y: [Double] = []
     var n: Int
-    var initparams: [Double] = [0.8, 0.8]
+    var initparams: [Double] = [0.5, 0.5]
     
     var fitnparams: Int {
         return 2
@@ -65,7 +65,8 @@ class NoisyExponentialTest: ExponentialDecayModel {
 
 class OptimizationTests: XCTestCase {
     var noiseTestModel = NoisyExponentialTest()
-    var largeTestModel = ExponentialDecayModel(n: 5000)
+    var largeTestModel = ExponentialDecayModel(n: 1024)
+    var hugeTestModel = ExponentialDecayModel(n: 10000)
     
     override func setUp() {
         super.setUp()
@@ -85,6 +86,19 @@ class OptimizationTests: XCTestCase {
             let p: [Double] = try fitter.fit()
             XCTAssertEqual(p[0], 1.02, accuracy: 0.05)
             XCTAssertEqual(p[1], 0.9, accuracy: 0.05)
+        } catch {
+            XCTFail("GaussNewton failed on small test")
+        }
+    }
+
+    func testLargeGaussNewtonFit() {
+        let fitter = GaussNewtonFitter(with: hugeTestModel)
+        fitter.verbose = true
+        fitter.reltol = 0.00001
+        do {
+            let p: [Double] = try fitter.fit()
+            XCTAssertEqual(p[0], 1.0, accuracy: 0.05)
+            XCTAssertEqual(p[1], 1.0, accuracy: 0.05)
         } catch {
             XCTFail("GaussNewton failed on small test")
         }
