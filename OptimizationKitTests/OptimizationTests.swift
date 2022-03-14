@@ -9,11 +9,12 @@
 import XCTest
 @testable import OptimizationKit
 
-/// Test by fitting common problem of exponential decay
+/// Test by fitting common problem of exponential decay. This `Fittable` class generates `n` points of data following an exponential decay with amplitude 1 and decay rate 1. It sets the initial guess for both model parameters to be off by 20 percent, though this can be changed by varying `initparams`. This allows easily checking convergence for a variety of conditions.
 class GenExponentialTest: Fittable {
     var x: [Double] = []
     var y: [Double] = []
     var n: Int
+    var initparams: [Double] = [0.8, 0.8]
     
     var fitnparams: Int {
         return 2
@@ -25,7 +26,7 @@ class GenExponentialTest: Fittable {
     
     // Memoryless Fittable model
     var fitparams: [Double] {
-        return [0.9, 0.9]
+        return initparams
     }
     
     init(n: Int) {
@@ -53,9 +54,9 @@ class NoisyExponentialTest: GenExponentialTest {
     init() {
         let x0: [Double] = [0, 1, 2, 3, 4, 5, 6]
         let y0: [Double] = [1.047, 0.2864, 0.288, 0.07777, 0.121, -0.0001342, 0, 0.01]
-
+        
         super.init(n: x0.count)
-
+        
         // replace default perfect data with noisy data
         self.x = x0
         self.y = y0
@@ -63,8 +64,8 @@ class NoisyExponentialTest: GenExponentialTest {
 }
 
 class OptimizationTests: XCTestCase {
-    var funtest = NoisyExponentialTest()
-    var gentest = GenExponentialTest(n: 256)
+    var noiseTestModel = NoisyExponentialTest()
+    var largeTestModel = GenExponentialTest(n: 5000)
     
     override func setUp() {
         super.setUp()
@@ -77,32 +78,30 @@ class OptimizationTests: XCTestCase {
     }
     
     func testGaussNewtonFit() {
-        let fitter = GaussNewtonFitter(with: gentest)
+        let fitter = GaussNewtonFitter(with: noiseTestModel)
         fitter.verbose = true
+        fitter.reltol = 0.00001
         do {
             let p: [Double] = try fitter.fit()
-            XCTAssertEqual(p[0], 1, accuracy: 0.01)
-            XCTAssertEqual(p[1], 1, accuracy: 0.01)
+            XCTAssertEqual(p[0], 1.02, accuracy: 0.05)
+            XCTAssertEqual(p[1], 0.9, accuracy: 0.05)
         } catch {
-            XCTFail("GaussNewton threw up")
+            XCTFail("GaussNewton failed on small test")
         }
     }
     
     func testGaussNewtonPerformance() {
-        let m = 64
-        let fitter = GaussNewtonFitter(with: funtest)
-        self.measure {
+        let measOptions = XCTMeasureOptions.default
+        measOptions.iterationCount = 32
+        let fitter = GaussNewtonFitter(with: largeTestModel)
+        measure(options: measOptions) {
             var p: [Double]
             do {
-                for k in 1...m {
-                    let tc0 = Double(k)/Double(m) + 0.5
-                    fitter.setInitial(params: [0.5, tc0])
-                    p = try fitter.fit()
-                    XCTAssertEqual(p[0], 1.0, accuracy: 0.01)
-                    XCTAssertEqual(p[1], 1.0, accuracy: 0.01)
-                }
+                p = try fitter.fit()
+                XCTAssertEqual(p[0], 1.0, accuracy: 0.01)
+                XCTAssertEqual(p[1], 1.0, accuracy: 0.01)
             } catch {
-                XCTFail("GaussNewton threw up")
+                XCTFail("GaussNewton failed on large test")
             }
         }
     }
