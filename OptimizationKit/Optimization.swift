@@ -19,13 +19,19 @@ public enum OptimizationError: Error {
 /// Protocol implemented by an object that provides a regression model.
 public protocol Fittable {
     /// Returns the dimensionality of the parameter vector.
-    var fitnparams: Int { get }
+     var fitnparams: Int { get }
     /// Returns the number of data points over which we're fitting.
-    var fitnpoints: Int { get }
+     var fitnpoints: Int { get }
     /// Returns the *starting* parameters for the fit. This is does not have to be updated during iterations.
-    var fitparams: [Double] { get }
+     var fitparams: [Double] { get }
     /// Function that returns a vector of residuals given an array of test parameters `params`.
-    func fitresiduals(for params:[Double]) throws -> [Double]
+     func fitresiduals(for params:[Double]) throws -> [Double]
+}
+
+/// Interface for `Fittable` model that can produce analytic Jacobian matrices
+public protocol AnalyticFittable: Fittable {
+    /// Returns Jacobian
+    func jacobian(at params:[Double]) -> [[Double]]
 }
 
 /// Superclass for all regression implementations. This superclass doesn't actually implement any regression function, but provides a common interface and helper functions to simplify implementation of regression models, which can often be implemented with only a few lines of code.
