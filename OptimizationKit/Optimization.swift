@@ -6,6 +6,8 @@
 //  Copyright © 2017-2022 Birge & Fuller. All rights reserved.
 //
 
+import Foundation
+
 public enum OptimizationError: Error {
     case undefinedResidual
     case singularJacobian
