@@ -109,9 +109,24 @@ public class Fitter {
         testparams = params
         return true
     }
-    
-    /// Finite difference matrix approximating Jacobian. Columns (vectors) representing eval points and rows (vector of vectors) representing parameters. Uses central differences.
+
+    /// Compute Jacobian matrix. Will check to see if system model conforms to AnalyticFittable prototype. If so, will query it for the Jacobian. If not, will compute the Jacobian using finite differences.
     func jacobian(at params:[Double]) throws -> [[Double]] {
+        if let analyticSystem = system as? AnalyticFittable {
+            return analyticSystem.jacobian(at: params)
+        } else {  // system not conformant to AnalyticFittable
+            return try fdjacobian(at: params)
+        }
+    }
+
+    /// Jacobian function that works directly with `Matrix<Double>` objects.
+    func jacobian(at params:Matrix<Double>) throws -> Matrix<Double> {
+        let Jdata = try jacobian(at: params[column:0])
+        return Matrix<Double>(Jdata)
+    }
+
+    /// Finite difference approximate Jacobian. Columns (vectors) representing eval points and rows (vector of vectors) representing parameters. Uses central differences.
+    private func fdjacobian(at params:[Double]) throws -> [[Double]] {
         var J: [[Double]] = []
         var params0 = params
         var params1 = params
@@ -119,28 +134,19 @@ public class Fitter {
             let dp = params[kp] * fdrel
             params0[kp] -= dp
             params1[kp] += dp
-            let x0 = try residuals(at: params0)
-            let x1 = try residuals(at: params1)
+            let x0 = try system.fitresiduals(for: params0)
+            let x1 = try system.fitresiduals(for: params1)
             J.append((x1 - x0)/(2*dp))
             params0[kp] = params[kp]
             params1[kp] = params[kp]
         }
         return J
     }
-    
-    /// Jacobian function that takes works directly with Matrix objects.
-    func jacobian(at params:Matrix<Double>) throws -> Matrix<Double> {
-        let Jdata = try jacobian(at: params[column:0])
-        return Matrix<Double>(Jdata)
-    }
-    
-    func residuals(at params:[Double]) throws -> [Double] {
-        return try system.fitresiduals(for: params)
-    }
-    
+
+    /// Utility function to compute residuals in form of `Matrix<Double>`
     func residuals(at beta:Matrix<Double>) throws -> Matrix<Double> {
         let betarray = beta.grid
-        let residarray: [Double] = try residuals(at: betarray)
+        let residarray: [Double] = try system.fitresiduals(for: betarray)
         return Matrix<Double>(residarray)
     }
 }

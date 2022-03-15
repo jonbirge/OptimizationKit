@@ -28,6 +28,7 @@
 		AB27E75027D3F7ED00C83D4D /* Optimization.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E74E27D3F7ED00C83D4D /* Optimization.swift */; };
 		AB27E75327D3F81B00C83D4D /* OptimizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E75127D3F81B00C83D4D /* OptimizationTests.swift */; };
 		AB27E75427D3F81B00C83D4D /* MatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27E75227D3F81B00C83D4D /* MatrixTests.swift */; };
+		ABDFC23C27E03763000ECFAA /* ExponentialModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDFC23B27E03763000ECFAA /* ExponentialModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		AB27E74E27D3F7ED00C83D4D /* Optimization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Optimization.swift; sourceTree = "<group>"; };
 		AB27E75127D3F81B00C83D4D /* OptimizationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptimizationTests.swift; sourceTree = "<group>"; };
 		AB27E75227D3F81B00C83D4D /* MatrixTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatrixTests.swift; sourceTree = "<group>"; };
+		ABDFC23B27E03763000ECFAA /* ExponentialModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExponentialModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 			children = (
 				AB27E75227D3F81B00C83D4D /* MatrixTests.swift */,
 				AB27E75127D3F81B00C83D4D /* OptimizationTests.swift */,
+				ABDFC23B27E03763000ECFAA /* ExponentialModel.swift */,
 			);
 			path = OptimizationKitTests;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				AB27E74427D3F7D200C83D4D /* Auxiliary.swift in Sources */,
 				AB27E74D27D3F7D200C83D4D /* Trigonometric.swift in Sources */,
 				AB27E75427D3F81B00C83D4D /* MatrixTests.swift in Sources */,
+				ABDFC23C27E03763000ECFAA /* ExponentialModel.swift in Sources */,
 				AB27E74727D3F7D200C83D4D /* Hyperbolic.swift in Sources */,
 				AB27E74B27D3F7D200C83D4D /* Arithmetic.swift in Sources */,
 				AB27E75327D3F81B00C83D4D /* OptimizationTests.swift in Sources */,
@@ -272,7 +276,9 @@
 		AB27E72F27D3F59B00C83D4D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -337,7 +343,9 @@
 		AB27E73027D3F59B00C83D4D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -396,7 +404,7 @@
 		AB27E73227D3F59B00C83D4D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALLOW_TARGET_PLATFORM_SPECIALIZATION = NO;
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -408,6 +416,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.7;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -418,7 +427,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.birgefuller.OptimizationKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTED_PLATFORMS = "watchsimulator watchos macosx iphonesimulator iphoneos driverkit appletvsimulator appletvos";
+				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -429,7 +439,7 @@
 		AB27E73327D3F59B00C83D4D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALLOW_TARGET_PLATFORM_SPECIALIZATION = NO;
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -441,6 +451,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.7;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -451,7 +462,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.birgefuller.OptimizationKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTED_PLATFORMS = "watchsimulator watchos macosx iphonesimulator iphoneos driverkit appletvsimulator appletvos";
+				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
