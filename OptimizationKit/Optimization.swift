@@ -28,14 +28,20 @@ public protocol Fittable {
      func fitresiduals(for params:[Double]) throws -> [Double]
 }
 
-/// Interface for `Fittable` model that can produce analytic Jacobian matrices
+/// Interface for `Fittable` model that can produce analytic Jacobian matrices.
 public protocol AnalyticFittable: Fittable {
     /// Returns Jacobian
     func jacobian(at params:[Double]) -> [[Double]]
 }
 
+/// Interface for class that can refine regression parameters.
+public protocol RegressionIterator {
+    func setsystem(_ system: RegressionController)
+    func refineparams(_ params: [Double]) throws -> [Double]
+}
+
 /// Superclass for all regression implementations. This superclass doesn't actually implement any regression function, but provides a common interface and helper functions to simplify implementation of regression models, which can often be implemented with only a few lines of code.
-public class Fitter {
+public class RegressionController {
     /// Provide feedback during regression iterations?
     public var verbose: Bool = false
     /// Relative tolerance before iteration is terminated
@@ -45,25 +51,36 @@ public class Fitter {
     /// Relative offset for finite differences used to approximate derivatives
     public var fdrel: Double = 0.0001
 
-    var system: Fittable  // regression model
-    var testparams: [Double]?
+    private var testparams: [Double]?
     private var iters: Int = 0
+
+    var system: Fittable  // regression system model
+    var fitter: RegressionIterator  // regression iteration implementation
     
     var iterations: Int {
         return iters
     }
     
-    public init(with sys: Fittable) {
-        self.system = sys
+    public init(for system: Fittable, using method: RegressionIterator) {
+        self.system = system
+        self.fitter = method
+        method.setsystem(self)
     }
     
-    /// Function that **must be overridden** by a subclass to implement the actual regression.
-    public func fit() throws -> [Double] {
-        throw OptimizationError.noFitOverrideDefined
+    /// Perform regression.
+    public func regression() throws -> [Double] {
+        guard var params = initFit() else {
+            throw OptimizationError.failedInit
+        }
+        repeat {
+            params = try fitter.refineparams(params)
+        } while checkTerminate(params: params)
+
+        return params
     }
     
     /// Initialize fit. This function **must be called at the beginning of a fit**. Returns the initial fit parameters.
-    public func initFit() -> [Double]? {
+    private func initFit() -> [Double]? {
         if verbose {
             print("Fitter: Starting fit...")
         }
@@ -73,7 +90,7 @@ public class Fitter {
     }
     
     /// Check for termination. This function **must be called once per iteration**. Returns `true` if iterations should continue. Guaranteed to return `true` the first time called.
-    public func checkTerminate(params: [Double]) -> Bool {
+    private func checkTerminate(params: [Double]) -> Bool {
         // check iteration count
         if iters > maxiters {
             if verbose {
@@ -143,6 +160,11 @@ public class Fitter {
         return J
     }
 
+    /// Utility function to compute residuals.
+    func residuals(at params:[Double]) throws -> [Double] {
+        return try system.fitresiduals(for: params)
+    }
+
     /// Utility function to compute residuals in form of `Matrix<Double>`
     func residuals(at beta:Matrix<Double>) throws -> Matrix<Double> {
         let betarray = beta.grid
@@ -151,21 +173,21 @@ public class Fitter {
     }
 }
 
-/// Example `Fitter` class that implements a Gauss-Newton method for nonlinear regression. Works by solving the least squares problem using the Jacobian pseudo-inverse. Note how little code is required to implement a complete non-linear regression algorithm.
-public class GaussNewtonFitter : Fitter {
-    
+/// Example `RegressionIterator` class that implements a Gauss-Newton method for nonlinear regression. Works by solving the least squares problem using the Jacobian pseudo-inverse. Note how little code is required to implement a complete non-linear regression algorithm.
+public class GaussNewtonFitter : RegressionIterator {
+    var system: RegressionController!
+
+    public func setsystem(_ system: RegressionController) {
+        self.system = system
+    }
+
     /// Implement Guass-Newton iterations, returning the current test vector after one step.
-    public override func fit() throws -> [Double] {
-        guard let initparams = initFit() else {
-            throw OptimizationError.failedInit
-        }
-        var beta = Matrix<Double>(initparams)
-        repeat {
-            let r = try residuals(at: beta)
-            let Jt = try jacobian(at: beta)  // transpose of Jacobian
-            let Jpi = try inv(Jt * transpose(Jt)) * Jt  // pseudo-inverse
-            beta = beta - Jpi * r
-        } while checkTerminate(params: beta[column:0])
+    public func refineparams(_ params: [Double]) throws -> [Double] {
+        var beta = Matrix<Double>(params)
+        let r = try system.residuals(at: beta)
+        let Jt = try system.jacobian(at: beta)  // transpose of Jacobian
+        let Jpi = try inv(Jt * transpose(Jt)) * Jt  // pseudo-inverse
+        beta = beta - Jpi * r
         
         return beta[column:0]
     }

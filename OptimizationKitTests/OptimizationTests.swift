@@ -10,10 +10,10 @@ import XCTest
 @testable import OptimizationKit
 
 class OptimizationTests: XCTestCase {
-    var noiseTestModel = NoisyExponentialDecayModel()
-    var largeTestModel = ExponentialDecayModel(n: 1024)
-    var hugeTestModel = ExponentialDecayModel(n: 1024*16)
-    var analyticTestModel = AnalyticExponentialDecayModel(n: 1024*16)
+    var noiseTestModel = RegressionController(for: NoisyExponentialDecayModel(), using: GaussNewtonFitter())
+    var largeTestModel = RegressionController(for: ExponentialDecayModel(n: 1024), using: GaussNewtonFitter())
+    var hugeTestModel = RegressionController(for: ExponentialDecayModel(n: 1024*16), using: GaussNewtonFitter())
+    var analyticTestModel = RegressionController(for: AnalyticExponentialDecayModel(n: 1024*16), using: GaussNewtonFitter())
 
     func assertDefaultParams(_ params: [Double]) {
         XCTAssertEqual(params[0], 1.0, accuracy: 0.05)
@@ -21,11 +21,11 @@ class OptimizationTests: XCTestCase {
     }
 
     func testNoisyGaussNewtonFit() {
-        let fitter = GaussNewtonFitter(with: noiseTestModel)
+        let fitter = noiseTestModel
         fitter.verbose = true
         fitter.reltol = 0.00001
         do {
-            let p: [Double] = try fitter.fit()
+            let p: [Double] = try fitter.regression()
             XCTAssertEqual(p[0], 1.02, accuracy: 0.05)
             XCTAssertEqual(p[1], 0.9, accuracy: 0.05)
         } catch {
@@ -34,11 +34,11 @@ class OptimizationTests: XCTestCase {
     }
 
     func testLargeGaussNewtonFit() {
-        let fitter = GaussNewtonFitter(with: hugeTestModel)
+        let fitter = hugeTestModel
         fitter.verbose = true
         fitter.reltol = 0.00001
         do {
-            let p: [Double] = try fitter.fit()
+            let p: [Double] = try fitter.regression()
             assertDefaultParams(p)
         } catch {
             XCTFail("GaussNewton failed on large scale test")
@@ -46,11 +46,11 @@ class OptimizationTests: XCTestCase {
     }
 
     func testAnalyticGaussNewtonFit() {
-        let fitter = GaussNewtonFitter(with: analyticTestModel)
+        let fitter = analyticTestModel
         fitter.verbose = true
         fitter.reltol = 0.00001
         do {
-            let p: [Double] = try fitter.fit()
+            let p: [Double] = try fitter.regression()
             assertDefaultParams(p)
         } catch {
             XCTFail("GaussNewton failed on analytic model test")
@@ -60,12 +60,12 @@ class OptimizationTests: XCTestCase {
     func testGaussNewtonPerformance() {
         let measOptions = XCTMeasureOptions.default
         measOptions.iterationCount = 32
-        let fitter = GaussNewtonFitter(with: largeTestModel)
+        let fitter = largeTestModel
         fitter.reltol = 0.00001
         measure(options: measOptions) {
             var p: [Double]
             do {
-                p = try fitter.fit()
+                p = try fitter.regression()
                 assertDefaultParams(p)
             } catch {
                 XCTFail("GaussNewton failed on performance test")
