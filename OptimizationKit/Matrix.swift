@@ -1,4 +1,4 @@
-// Hyperbolic.swift
+// Matrix.swift
 //
 // Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 // Copyright (c) 2017-2022 Jonathan Birge (http://www.mit.edu/~birge)

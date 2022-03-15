@@ -110,16 +110,20 @@ public class Fitter {
         return true
     }
     
-    /// Finite difference matrix approximating Jacobian. Columns (vectors) representing points and rows (vector of vectors) representing parameters.
+    /// Finite difference matrix approximating Jacobian. Columns (vectors) representing eval points and rows (vector of vectors) representing parameters. Uses central differences.
     func jacobian(at params:[Double]) throws -> [[Double]] {
         var J: [[Double]] = []
+        var params0 = params
+        var params1 = params
         for kp in 0..<params.count {
             let dp = params[kp] * fdrel
-            var params1 = params
-            params1[kp] = params1[kp] + dp
-            let x0 = try residuals(at: params)
+            params0[kp] -= dp
+            params1[kp] += dp
+            let x0 = try residuals(at: params0)
             let x1 = try residuals(at: params1)
-            J.append((x1 - x0)/dp)
+            J.append((x1 - x0)/(2*dp))
+            params0[kp] = params[kp]
+            params1[kp] = params[kp]
         }
         return J
     }

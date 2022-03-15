@@ -14,7 +14,7 @@ class ExponentialDecayModel: Fittable {
     var x: [Double] = []
     var y: [Double] = []
     var n: Int
-    var initparams: [Double] = [0.5, 0.5]
+    var initparams: [Double] = [0.25, 0.25]
     
     var fitnparams: Int {
         return 2
@@ -78,7 +78,7 @@ class OptimizationTests: XCTestCase {
         super.tearDown()
     }
     
-    func testGaussNewtonFit() {
+    func testNoisyGaussNewtonFit() {
         let fitter = GaussNewtonFitter(with: noiseTestModel)
         fitter.verbose = true
         fitter.reltol = 0.00001
