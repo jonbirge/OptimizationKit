@@ -34,12 +34,14 @@ public protocol AnalyticFittable: Fittable {
     func jacobian(at params:[Double]) -> [[Double]]
 }
 
-/// Interface for class that can refine regression parameters.
+/// Interface for delegate class that refines parameters in a regression iteration.
 public protocol RegressionIterator {
+    /// Used by `RegressionController` to inform `RegressionIterator` of parent system
     func setsystem(_ system: RegressionController)
     func refineparams(_ params: [Double]) throws -> [Double]
 }
 
+// TODO: Have RegressionController instantiate Iterator by passing Type
 /// Superclass for all regression implementations. This superclass doesn't actually implement any regression function, but provides a common interface and helper functions to simplify implementation of regression models, which can often be implemented with only a few lines of code.
 public class RegressionController {
     /// Provide feedback during regression iterations?
@@ -55,7 +57,7 @@ public class RegressionController {
     private var iters: Int = 0
 
     var system: Fittable  // regression system model
-    var fitter: RegressionIterator  // regression iteration implementation
+    var fitter: RegressionIterator  // regression iteration delegate
     
     var iterations: Int {
         return iters
@@ -173,9 +175,11 @@ public class RegressionController {
     }
 }
 
-/// Example `RegressionIterator` class that implements a Gauss-Newton method for nonlinear regression. Works by solving the least squares problem using the Jacobian pseudo-inverse. Note how little code is required to implement a complete non-linear regression algorithm.
+/// A `RegressionIterator` class that implements a Gauss-Newton method for nonlinear regression. Works by solving the least squares problem using the Jacobian pseudo-inverse. Note how little code is required to implement a complete non-linear regression algorithm.
 public class GaussNewtonFitter : RegressionIterator {
     var system: RegressionController!
+
+    public init() { }
 
     public func setsystem(_ system: RegressionController) {
         self.system = system
